@@ -1,7 +1,7 @@
 import { AuthorizationFailedException, NotFoundException } from '../exceptions';
 import StoreModel, { IStoreDB } from '../models/store.model';
 import UserModel from '../models/user.model';
-import transform from '../transformers/store.transformer';
+import { transform } from '../transformers/store.transformer';
 import { Store, StoreCreateInput, StoreUpdateInput } from '../types/store.type';
 import { Pagination } from '../types/pagination.type';
 

@@ -1,4 +1,5 @@
 import { model, Schema, Document, PopulatedDoc } from 'mongoose';
+import { IStoreDB } from './store.model';
 import { IUserDB } from './user.model';
 
 // Interface for category database object
@@ -6,6 +7,7 @@ export interface ICategoryDB extends Document {
   title: string;
   description: string;
   author: PopulatedDoc<IUserDB & Document>;
+  store: PopulatedDoc<IStoreDB & Document>;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -24,6 +26,11 @@ const CategorySchema: Schema = new Schema(
     author: {
       type: Schema.Types.ObjectId,
       ref: 'user',
+    },
+    store: {
+      type: Schema.Types.ObjectId,
+      ref: 'store',
+      required: true,
     },
   },
   { timestamps: true, versionKey: false }

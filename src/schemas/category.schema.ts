@@ -5,6 +5,7 @@ export const createCategorySchema: RequestValidateSchema = {
   body: Joi.object().keys({
     title: Joi.string().required(),
     description: Joi.string().required(),
+    store: Joi.string().required(),
   }),
 };
 

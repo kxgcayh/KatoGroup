@@ -1,5 +1,6 @@
 import { AuthorizationFailedException, NotFoundException } from '../exceptions';
 import CategoryModel, { ICategoryDB } from '../models/category.model';
+import StoreModel from '../models/store.model';
 import UserModel from '../models/user.model';
 import transform from '../transformers/category.transformer';
 import {
@@ -14,14 +15,21 @@ export const createCategory = async (
   categoryInput: CategoryCreateInput
 ): Promise<Category> => {
   const isAuthorExists = await UserModel.exists({ _id: categoryInput.author });
+  const isStoreExists = await StoreModel.exists({ _id: categoryInput.store });
 
   if (!isAuthorExists) {
     throw new NotFoundException(
       `User with id ${categoryInput.author} not found`
     );
   }
+  if (!isStoreExists) {
+    throw new NotFoundException(
+      `Store with id ${categoryInput.store} not found`
+    );
+  }
+
   let category: ICategoryDB = await CategoryModel.create(categoryInput);
-  category = await category.populate('author').execPopulate();
+  category = await category.populate('author').populate('store').execPopulate();
   return transform(category);
 };
 
@@ -89,6 +97,7 @@ export const getAllCategories = async (
   const categories: Array<ICategoryDB> = await CategoryModel.find()
     .limit(pagination.size)
     .skip((pagination.page - 1) * pagination.size)
-    .populate('author');
+    .populate('author')
+    .populate('store');
   return categories.map((category) => transform(category));
 };

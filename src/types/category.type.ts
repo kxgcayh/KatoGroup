@@ -17,8 +17,3 @@ export type CategoryUpdateInput = {
   title?: string;
   description?: string;
 };
-
-export type Pagination = {
-  size: number;
-  page: number;
-};

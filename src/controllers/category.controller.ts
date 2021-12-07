@@ -6,10 +6,11 @@ import {
   deleteCategory,
   getAllCategories,
 } from '../services/category.service';
+import {
+  DEFAULT_PAGINATION_PAGE,
+  DEFAULT_PAGINATION_SIZE,
+} from '../constants/pagination';
 import { Category } from '../types/category.type';
-
-const DEFAULT_PAGINATION_PAGE = 1;
-const DEFAULT_PAGINATION_SIZE = 10;
 
 // Method to handle the category creation
 export const createCategoryHandler = async (
@@ -111,8 +112,9 @@ export const getAllCategoriesHandler = async (
 
     const categories: Category[] = await getAllCategories({ page, size });
     return res.status(200).send({
-      status: 200,
       data: categories,
+      status: 200,
+      message: 'Categories Fetched Successfully',
     });
   } catch (error) {
     next(error);

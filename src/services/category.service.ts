@@ -6,8 +6,8 @@ import {
   Category,
   CategoryCreateInput,
   CategoryUpdateInput,
-  Pagination,
 } from '../types/category.type';
+import { Pagination } from '../types/pagination.type';
 
 // Create a category in the database convert the result to the Category type and send it back to the controller
 export const createCategory = async (

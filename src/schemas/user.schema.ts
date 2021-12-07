@@ -14,6 +14,6 @@ export const signUpUserSchema: RequestValidateSchema = {
     email: Joi.string().email().required(),
     name: Joi.string().required(),
     password: Joi.string().required(),
-    role: Joi.string().valid(ROLE.READER, ROLE.AUTHOR),
+    role: Joi.string().valid(ROLE.CUSTOMER, ROLE.AUTHOR),
   }),
 };

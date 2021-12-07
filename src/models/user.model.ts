@@ -27,8 +27,8 @@ const UserSchema: Schema = new Schema(
     },
     role: {
       type: String,
-      enum: [ROLE.AUTHOR, ROLE.READER],
-      default: ROLE.READER,
+      enum: [ROLE.AUTHOR, ROLE.CUSTOMER],
+      default: ROLE.CUSTOMER,
     },
     password: {
       type: String,

@@ -10,9 +10,13 @@ export const loginHandler = async (
 ): Promise<Response | undefined> => {
   try {
     const user: AuthUser = await login(req.body);
-    return res.status(200).send(user);
-  } catch (e: any) {
-    next(res.status(e.statusCode).send(e));
+    return res.status(200).send({
+      data: user,
+      status: res.statusCode,
+      message: 'Login Success',
+    });
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -24,7 +28,11 @@ export const signUpHandler = async (
 ): Promise<Response | undefined> => {
   try {
     const user: AuthUser = await signUp(req.body);
-    return res.status(201).send(user);
+    return res.status(201).send({
+      data: user,
+      status: res.statusCode,
+      message: 'Registration Success Success',
+    });
   } catch (error) {
     next(error);
   }

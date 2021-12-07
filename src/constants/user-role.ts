@@ -1,4 +1,4 @@
 export const ROLE = {
   AUTHOR: 'AUTHOR',
-  READER: 'READER',
+  CUSTOMER: 'CUSTOMER',
 };

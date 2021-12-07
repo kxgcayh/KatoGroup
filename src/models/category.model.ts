@@ -1,23 +1,23 @@
 import { model, Schema, Document, PopulatedDoc } from 'mongoose';
 import { IUserDB } from './user.model';
 
-// Interface for blog database object
-export interface IBlogDB extends Document {
+// Interface for category database object
+export interface ICategoryDB extends Document {
   title: string;
-  content: string;
+  description: string;
   author: PopulatedDoc<IUserDB & Document>;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-// Blog database schema
-const BlogSchema: Schema = new Schema(
+// Category database schema
+const CategorySchema: Schema = new Schema(
   {
     title: {
       type: String,
       required: true,
     },
-    content: {
+    description: {
       type: String,
       required: true,
     },
@@ -29,6 +29,6 @@ const BlogSchema: Schema = new Schema(
   { timestamps: true, versionKey: false }
 );
 
-const BlogModel = model<IBlogDB>('blog', BlogSchema);
+const CategoryModel = model<ICategoryDB>('category', CategorySchema);
 
-export default BlogModel;
+export default CategoryModel;

@@ -31,7 +31,7 @@ export const signUpHandler = async (
     return res.status(201).send({
       data: user,
       status: res.statusCode,
-      message: 'Registration Success Success',
+      message: 'Registration Success',
     });
   } catch (error) {
     next(error);

@@ -1,21 +1,21 @@
 import { User } from './user.type';
 
-export type Blog = {
+export type Category = {
   title: string;
-  content: string;
+  description: string;
   author: User;
   id: string;
 };
 
-export type BlogCreateInput = {
+export type CategoryCreateInput = {
   title: string;
-  content: string;
+  description: string;
   author: string;
 };
 
-export type BlogUpdateInput = {
+export type CategoryUpdateInput = {
   title?: string;
-  content?: string;
+  description?: string;
 };
 
 export type Pagination = {

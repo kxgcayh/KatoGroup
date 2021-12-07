@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import blogRouter from './blog.route';
+import categoryRouter from './category.route';
 import authRouter from './auth.route';
 
 const router = Router();
@@ -11,6 +11,7 @@ router.get('/health-check', async (req, res) => {
     message: 'OK',
     timestamp: Date.now(),
   };
+
   try {
     res.send(healthCheck);
   } catch (e: any) {
@@ -19,8 +20,8 @@ router.get('/health-check', async (req, res) => {
   }
 });
 
-// Import all blog routes
-router.use('/blogs', blogRouter);
+// Import all category routes
+router.use('/categories', categoryRouter);
 
 //Import all auth routes
 router.use('/auth', authRouter);

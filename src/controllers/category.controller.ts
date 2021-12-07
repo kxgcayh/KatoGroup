@@ -1,42 +1,45 @@
 import { NextFunction, Request, Response } from 'express';
 import {
-  createBlog,
-  getBlog,
-  updateBlog,
-  deleteBlog,
-  getAllBlogs,
-} from '../services/blog.service';
-import { Blog } from '../types/blog.type';
+  createCategory,
+  getCategory,
+  updateCategory,
+  deleteCategory,
+  getAllCategories,
+} from '../services/category.service';
+import { Category } from '../types/category.type';
 
 const DEFAULT_PAGINATION_PAGE = 1;
 const DEFAULT_PAGINATION_SIZE = 10;
 
-// Method to handle the blog creation
-export const createBlogHandler = async (
+// Method to handle the category creation
+export const createCategoryHandler = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<Response | undefined> => {
   try {
     const userId = req.user?.id;
-    const blog: Blog = await createBlog({ ...req.body, author: userId });
-    return res.status(201).send(blog);
+    const category: Category = await createCategory({
+      ...req.body,
+      author: userId,
+    });
+    return res.status(201).send(category);
   } catch (error) {
     next(error);
   }
 };
 
-// Method to handle blog fetching
-export const getBlogHandler = async (
+// Method to handle category fetching
+export const getCategoryHandler = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<Response | undefined> => {
   try {
-    const blog: Blog | null = await getBlog(req.params.id);
+    const category: Category | null = await getCategory(req.params.id);
 
-    if (blog) {
-      return res.status(200).send(blog);
+    if (category) {
+      return res.status(200).send(category);
     }
     return res.status(404).send();
   } catch (error) {
@@ -44,38 +47,42 @@ export const getBlogHandler = async (
   }
 };
 
-// Method to handle blog update
-export const updateBlogHandler = async (
+// Method to handle category update
+export const updateCategoryHandler = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<Response | undefined> => {
   try {
     const userId = req.user?.id;
-    const blog: Blog = await updateBlog(req.params.id, req.body, userId);
-    return res.status(200).send(blog);
+    const category: Category = await updateCategory(
+      req.params.id,
+      req.body,
+      userId
+    );
+    return res.status(200).send(category);
   } catch (error) {
     next(error);
   }
 };
 
-// Method to handle blog deletion
-export const deleteBlogHandler = async (
+// Method to handle category deletion
+export const deleteCategoryHandler = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<Response | undefined> => {
   try {
     const userId = req.user?.id;
-    await deleteBlog(req.params.id, userId);
+    await deleteCategory(req.params.id, userId);
     return res.status(204).send();
   } catch (error) {
     next(error);
   }
 };
 
-// Method to fetch all the blogs
-export const getAllBlogsHandler = async (
+// Method to fetch all the categories
+export const getAllCategoriesHandler = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -88,10 +95,10 @@ export const getAllBlogsHandler = async (
       (req.query.size && parseInt(req.query.size.toString())) ||
       DEFAULT_PAGINATION_SIZE;
 
-    const blogs: Blog[] = await getAllBlogs({ page, size });
+    const categories: Category[] = await getAllCategories({ page, size });
     return res.status(200).send({
       status: 200,
-      data: blogs,
+      data: categories,
     });
   } catch (error) {
     next(error);

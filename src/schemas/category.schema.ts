@@ -1,29 +1,29 @@
 import Joi from 'joi';
 import { RequestValidateSchema } from '../types/request-validate-schema.type';
 
-export const createBlogSchema: RequestValidateSchema = {
+export const createCategorySchema: RequestValidateSchema = {
   body: Joi.object().keys({
     title: Joi.string().required(),
-    content: Joi.string().required(),
+    description: Joi.string().required(),
   }),
 };
 
-export const getBlogSchema: RequestValidateSchema = {
+export const getCategorySchema: RequestValidateSchema = {
   params: Joi.object().keys({
     id: Joi.string().hex().length(24).required(),
   }),
 };
 
-export const updateBlogSchema: RequestValidateSchema = {
+export const updateCategorySchema: RequestValidateSchema = {
   body: Joi.object().keys({
     title: Joi.string(),
-    content: Joi.string(),
+    description: Joi.string(),
   }),
   params: Joi.object().keys({
     id: Joi.string().hex().length(24).required(),
   }),
 };
-export const deleteBlogSchema: RequestValidateSchema = {
+export const deleteCategorySchema: RequestValidateSchema = {
   params: Joi.object().keys({
     id: Joi.string().hex().length(24).required(),
   }),

@@ -56,6 +56,7 @@ export const updateCategory = async (
     await CategoryModel.findByIdAndUpdate(id, categoryUpdate, {
       new: true,
     }).populate('author');
+
   if (!updatedCategory) {
     throw new NotFoundException(`Category with an id ${id} not found`);
   }

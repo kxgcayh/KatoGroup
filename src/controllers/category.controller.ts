@@ -23,7 +23,11 @@ export const createCategoryHandler = async (
       ...req.body,
       author: userId,
     });
-    return res.status(201).send(category);
+    return res.status(201).send({
+      data: category,
+      status: res.statusCode,
+      message: 'Create Category Success',
+    });
   } catch (error) {
     next(error);
   }
@@ -41,7 +45,10 @@ export const getCategoryHandler = async (
     if (category) {
       return res.status(200).send(category);
     }
-    return res.status(404).send();
+    return res.status(404).send({
+      status: res.statusCode,
+      message: 'Category Not Found',
+    });
   } catch (error) {
     next(error);
   }
@@ -60,7 +67,11 @@ export const updateCategoryHandler = async (
       req.body,
       userId
     );
-    return res.status(200).send(category);
+    return res.status(200).send({
+      data: category,
+      status: res.statusCode,
+      message: 'Update Category Success',
+    });
   } catch (error) {
     next(error);
   }
@@ -75,7 +86,10 @@ export const deleteCategoryHandler = async (
   try {
     const userId = req.user?.id;
     await deleteCategory(req.params.id, userId);
-    return res.status(204).send();
+    return res.status(200).send({
+      status: res.statusCode,
+      message: 'Category Deleted Successfully',
+    });
   } catch (error) {
     next(error);
   }

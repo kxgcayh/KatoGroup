@@ -5,6 +5,7 @@ import {
   updateCategory,
   deleteCategory,
   getAllCategories,
+  getCategoriesByStore,
 } from '../services/category.service';
 import {
   DEFAULT_PAGINATION_PAGE,
@@ -49,6 +50,36 @@ export const getCategoryHandler = async (
     return res.status(404).send({
       status: res.statusCode,
       message: 'Category Not Found',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCategoriesByStoreHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response | undefined> => {
+  try {
+    const page =
+      (req.query.page && parseInt(req.query.page.toString())) ||
+      DEFAULT_PAGINATION_PAGE;
+    const size =
+      (req.query.size && parseInt(req.query.size.toString())) ||
+      DEFAULT_PAGINATION_SIZE;
+
+    const categories: Category[] = await getCategoriesByStore(
+      req.params.storeId,
+      {
+        page,
+        size,
+      }
+    );
+    return res.status(200).send({
+      data: categories,
+      status: 200,
+      message: 'Categories from Sort Fetched Successfully',
     });
   } catch (error) {
     next(error);

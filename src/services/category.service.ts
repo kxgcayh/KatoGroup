@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongoose';
 import { AuthorizationFailedException, NotFoundException } from '../exceptions';
 import CategoryModel, { ICategoryDB } from '../models/category.model';
 import StoreModel from '../models/store.model';
@@ -9,6 +10,7 @@ import {
   CategoryUpdateInput,
 } from '../types/category.type';
 import { Pagination } from '../types/pagination.type';
+import { IStoreDB } from '../models/store.model';
 
 // Create a category in the database convert the result to the Category type and send it back to the controller
 export const createCategory = async (
@@ -35,13 +37,27 @@ export const createCategory = async (
 
 // Fetch a category from database convert it to the Category type and send it back to the controller
 export const getCategory = async (id: string): Promise<Category | null> => {
-  const category: ICategoryDB | null = await CategoryModel.findById(
-    id
-  ).populate('author');
+  const category: ICategoryDB | null = await CategoryModel.findById(id)
+    .populate('author')
+    .populate('store');
   if (!category) {
     return null;
   }
   return transform(category);
+};
+
+export const getCategoriesByStore = async (
+  storeId: string,
+  pagination: Pagination
+): Promise<Array<Category>> => {
+  const categories: ICategoryDB[] | null = await CategoryModel.find({
+    store: storeId,
+  })
+    .limit(pagination.size)
+    .skip((pagination.page - 1) * pagination.size)
+    .populate('author')
+    .populate('store');
+  return categories.map((category) => transform(category));
 };
 
 // Update a category from database convert it to the Category type and send it back to the controller

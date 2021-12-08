@@ -5,6 +5,7 @@ import {
   updateCategoryHandler,
   deleteCategoryHandler,
   getAllCategoriesHandler,
+  getCategoriesByStoreHandler,
 } from '../controllers/category.controller';
 import { authenticate, authorize, validate } from '../middlewares';
 import {
@@ -32,6 +33,13 @@ categoryRouter.get(
   authenticate,
   validate(getCategorySchema),
   getCategoryHandler
+);
+
+categoryRouter.get(
+  '/store/:id',
+  authenticate,
+  validate(getCategorySchema),
+  getCategoriesByStoreHandler
 );
 
 //Route to update a category

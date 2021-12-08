@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongoose';
 import { AuthorizationFailedException, NotFoundException } from '../exceptions';
 import CategoryModel, { ICategoryDB } from '../models/category.model';
 import StoreModel from '../models/store.model';
@@ -10,7 +9,6 @@ import {
   CategoryUpdateInput,
 } from '../types/category.type';
 import { Pagination } from '../types/pagination.type';
-import { IStoreDB } from '../models/store.model';
 
 // Create a category in the database convert the result to the Category type and send it back to the controller
 export const createCategory = async (

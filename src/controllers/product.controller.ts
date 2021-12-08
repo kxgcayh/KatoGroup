@@ -7,6 +7,7 @@ import {
   createProduct,
   getAllProduct,
   getProduct,
+  updateProduct,
 } from '../services/product.service';
 import { Product } from '../types/product.type';
 
@@ -72,6 +73,28 @@ export const getProductHandler = async (
     return res.status(404).send({
       status: res.statusCode,
       message: 'Product Not Found',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateProductHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response | undefined> => {
+  try {
+    const userId = req.user?.id;
+    const product: Product = await updateProduct(
+      req.params.id,
+      req.body,
+      userId
+    );
+    return res.status(200).send({
+      data: product,
+      status: res.statusCode,
+      message: 'Update Product Success',
     });
   } catch (error) {
     next(error);

@@ -1,9 +1,13 @@
-import { NotFoundException } from '../exceptions';
+import { NotFoundException, AuthorizationFailedException } from '../exceptions';
 import { IProductDB, ProductModel } from '../models/product.model';
 import UserModel from '../models/user.model';
 import { transform } from '../transformers/product.transformer';
 import { Pagination } from '../types/pagination.type';
-import { Product, ProductCreateInput } from '../types/product.type';
+import {
+  Product,
+  ProductCreateInput,
+  ProductUpdateInput,
+} from '../types/product.type';
 
 export const createProduct = async (
   productInput: ProductCreateInput
@@ -37,4 +41,28 @@ export const getProduct = async (id: string): Promise<Product | null> => {
     return null;
   }
   return transform(product);
+};
+
+export const updateProduct = async (
+  id: string,
+  productInputUpdate: ProductUpdateInput,
+  userId: string | undefined
+): Promise<Product> => {
+  const product: Product | null = await getProduct(id);
+  if (product?.author.id !== userId) {
+    throw new AuthorizationFailedException([
+      `User is not authorized to perform update on the requested product`,
+    ]);
+  }
+
+  const updatedProduct: IProductDB | null =
+    await ProductModel.findByIdAndUpdate(id, productInputUpdate, {
+      new: true,
+    }).populate('author');
+
+  if (!updatedProduct) {
+    throw new NotFoundException(`Product with an id ${id} not found`);
+  }
+
+  return transform(updatedProduct);
 };

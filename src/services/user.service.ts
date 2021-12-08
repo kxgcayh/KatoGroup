@@ -48,7 +48,7 @@ export const login = async (loginInput: UserLoginInput): Promise<AuthUser> => {
   }
 
   const token = jwt.sign({ id: user._id }, jwtPrivateKey, {
-    expiresIn: ttl,
+    // expiresIn: ttl,
   });
   return transformAuthUser(user, token);
 };

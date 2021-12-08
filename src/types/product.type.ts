@@ -17,3 +17,10 @@ export type ProductCreateInput = {
   price: PriceCreateInput;
   author: string;
 };
+
+export type ProductUpdateInput = {
+  name?: string;
+  description?: string;
+  available?: boolean;
+  price?: PriceCreateInput;
+};

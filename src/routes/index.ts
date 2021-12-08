@@ -2,6 +2,7 @@ import { Router } from 'express';
 import categoryRouter from './category.route';
 import authRouter from './auth.route';
 import storeRouter from './store.route';
+import productRouter from './product.route';
 
 const router = Router();
 
@@ -20,6 +21,9 @@ router.get('/health-check', async (req, res) => {
     res.status(503).send();
   }
 });
+
+// Import all product routes
+router.use('/products', productRouter);
 
 // Import all store routes
 router.use('/stores', storeRouter);

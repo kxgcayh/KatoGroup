@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   createProductHandler,
+  getAllProductsHandler,
   getProductHandler,
 } from '../controllers/product.controller';
 import { authenticate, authorize, validate } from '../middlewares';
@@ -29,5 +30,7 @@ productRouter.get(
   validate(getProductSchema),
   getProductHandler
 );
+
+productRouter.get('/', authenticate, getAllProductsHandler);
 
 export default productRouter;

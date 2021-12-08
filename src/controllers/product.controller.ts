@@ -5,6 +5,7 @@ import {
 } from '../constants/pagination';
 import {
   createProduct,
+  deleteProduct,
   getAllProduct,
   getProduct,
   updateProduct,
@@ -95,6 +96,23 @@ export const updateProductHandler = async (
       data: product,
       status: res.statusCode,
       message: 'Update Product Success',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteProductHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response | undefined> => {
+  try {
+    const userId = req.user?.id;
+    await deleteProduct(req.params.id, userId);
+    return res.status(200).send({
+      status: res.statusCode,
+      message: 'Product Deleted Successfully',
     });
   } catch (error) {
     next(error);

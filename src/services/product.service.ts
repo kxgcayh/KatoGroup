@@ -66,3 +66,20 @@ export const updateProduct = async (
 
   return transform(updatedProduct);
 };
+
+export const deleteProduct = async (
+  id: string,
+  userId: string | undefined
+): Promise<boolean> => {
+  const product: Product | null = await getProduct(id);
+  if (!product) {
+    throw new NotFoundException(`Product with an id ${id} not found`);
+  }
+  if (product.author.id !== userId) {
+    throw new AuthorizationFailedException([
+      `User is not authorized to perform delete on the requested product`,
+    ]);
+  }
+  await ProductModel.findByIdAndDelete(id);
+  return true;
+};

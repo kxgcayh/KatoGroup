@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   createProductHandler,
+  deleteProductHandler,
   getAllProductsHandler,
   getProductHandler,
   updateProductHandler,
@@ -8,6 +9,7 @@ import {
 import { authenticate, authorize, validate } from '../middlewares';
 import {
   createProductSchema,
+  deleteProductSchema,
   getProductSchema,
   updateProductSchema,
 } from '../schemas/product.schema';
@@ -40,6 +42,14 @@ productRouter.patch(
   authorize([ROLE.AUTHOR]),
   validate(updateProductSchema),
   updateProductHandler
+);
+
+productRouter.delete(
+  '/:id',
+  authenticate,
+  authorize([ROLE.AUTHOR]),
+  validate(deleteProductSchema),
+  deleteProductHandler
 );
 
 productRouter.get('/', authenticate, getAllProductsHandler);

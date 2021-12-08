@@ -10,6 +10,17 @@ export const transform = (user: IUserDB): User => {
   };
 };
 
+export const transformUsers = (user: IUserDB): User[] => {
+  return [
+    {
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
+  ];
+};
+
 export const transformAuthUser = (user: IUserDB, token: string): AuthUser => {
   return {
     id: user._id.toString(),

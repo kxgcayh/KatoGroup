@@ -14,7 +14,7 @@ export interface IUserDB extends Document {
 }
 
 // User database schema
-const UserSchema: Schema = new Schema(
+export const UserSchema: Schema = new Schema(
   {
     email: {
       type: String,

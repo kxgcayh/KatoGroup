@@ -9,6 +9,7 @@ import {
   CategoryUpdateInput,
 } from '../types/category.type';
 import { Pagination } from '../types/pagination.type';
+import Logger from '../utils/logger';
 
 // Create a category in the database convert the result to the Category type and send it back to the controller
 export const createCategory = async (
@@ -22,6 +23,7 @@ export const createCategory = async (
       `User with id ${categoryInput.author} not found`
     );
   }
+
   if (!isStoreExists) {
     throw new NotFoundException(
       `Store with id ${categoryInput.store} not found`
@@ -29,7 +31,11 @@ export const createCategory = async (
   }
 
   let category: ICategoryDB = await CategoryModel.create(categoryInput);
-  category = await category.populate('author').populate('store').execPopulate();
+  category = await category
+    .populate('author')
+    .populate('store')
+    .populate('product')
+    .execPopulate();
   return transform(category);
 };
 

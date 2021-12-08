@@ -1,17 +1,18 @@
 import { NextFunction, Request, Response } from 'express';
 import {
-  createCategory,
-  getCategory,
-  updateCategory,
-  deleteCategory,
-  getAllCategories,
-  getCategoriesByStore,
-} from '../services/category.service';
-import {
   DEFAULT_PAGINATION_PAGE,
   DEFAULT_PAGINATION_SIZE,
 } from '../constants/pagination';
+import {
+  createCategory,
+  deleteCategory,
+  getAllCategories,
+  getCategoriesByStore,
+  getCategory,
+  updateCategory,
+} from '../services/category.service';
 import { Category } from '../types/category.type';
+import Logger from '../utils/logger';
 
 // Method to handle the category creation
 export const createCategoryHandler = async (

@@ -13,3 +13,16 @@ export const transform = (product: IProductDB): Product => {
     author: transformUser(product.author),
   };
 };
+
+export const transformProducts = (product: IProductDB): Product[] => {
+  return [
+    {
+      id: product._id.toString(),
+      name: product.name,
+      description: product.description,
+      available: product.available,
+      price: transformPrice(product.price),
+      author: transformUser(product.author),
+    },
+  ];
+};

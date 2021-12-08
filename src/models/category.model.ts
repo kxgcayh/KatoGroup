@@ -8,6 +8,7 @@ export interface ICategoryDB extends Document {
   description: string;
   author: PopulatedDoc<IUserDB & Document>;
   store: PopulatedDoc<IStoreDB & Document>;
+  products: PopulatedDoc<IStoreDB & Document>;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -32,6 +33,12 @@ const CategorySchema: Schema = new Schema(
       ref: 'store',
       required: true,
     },
+    products: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'product',
+      },
+    ],
   },
   { timestamps: true, versionKey: false }
 );

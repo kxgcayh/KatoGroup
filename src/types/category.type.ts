@@ -1,3 +1,4 @@
+import { Product } from './product.type';
 import { Store } from './store.type';
 import { User } from './user.type';
 
@@ -6,6 +7,7 @@ export type Category = {
   description: string;
   author: User;
   store: Store;
+  products: Product[];
   id: string;
 };
 

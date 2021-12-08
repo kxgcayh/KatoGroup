@@ -1,4 +1,4 @@
-import { model, Schema, Document, PopulatedDoc } from 'mongoose';
+import { Document, model, PopulatedDoc, Schema } from 'mongoose';
 import { IUserDB } from './user.model';
 
 export interface IStoreDB extends Document {
@@ -27,11 +27,11 @@ const StoreSchema: Schema = new Schema(
   { timestamps: true, versionKey: false }
 );
 
-StoreSchema.virtual('categories', {
-  ref: 'category',
-  localField: '_id',
-  foreignField: 'store',
-});
+// StoreSchema.virtual('categories', {
+//   ref: 'category',
+//   localField: '_id',
+//   foreignField: 'store',
+// });
 
 const StoreModel = model<IStoreDB>('store', StoreSchema);
 

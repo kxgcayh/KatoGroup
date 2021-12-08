@@ -69,13 +69,10 @@ export const getCategoriesByStoreHandler = async (
       (req.query.size && parseInt(req.query.size.toString())) ||
       DEFAULT_PAGINATION_SIZE;
 
-    const categories: Category[] = await getCategoriesByStore(
-      req.params.storeId,
-      {
-        page,
-        size,
-      }
-    );
+    const categories: Category[] = await getCategoriesByStore(req.params.id, {
+      page,
+      size,
+    });
     return res.status(200).send({
       data: categories,
       status: 200,

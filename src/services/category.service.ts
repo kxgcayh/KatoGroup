@@ -3,7 +3,7 @@ import { AuthorizationFailedException, NotFoundException } from '../exceptions';
 import CategoryModel, { ICategoryDB } from '../models/category.model';
 import StoreModel from '../models/store.model';
 import UserModel from '../models/user.model';
-import transform from '../transformers/category.transformer';
+import { transform } from '../transformers/category.transformer';
 import {
   Category,
   CategoryCreateInput,
@@ -47,15 +47,14 @@ export const getCategory = async (id: string): Promise<Category | null> => {
 };
 
 export const getCategoriesByStore = async (
-  storeId: string,
+  id: string,
   pagination: Pagination
 ): Promise<Array<Category>> => {
   const categories: ICategoryDB[] | null = await CategoryModel.find({
-    store: storeId,
+    store: id,
   })
     .limit(pagination.size)
     .skip((pagination.page - 1) * pagination.size)
-    .populate('author')
     .populate('store');
   return categories.map((category) => transform(category));
 };

@@ -3,7 +3,7 @@ import { Category } from '../types/category.type';
 import { transform as transformUser } from './user.transformer';
 import { transform as transformStore } from './store.transformer';
 
-const transform = (category: ICategoryDB): Category => {
+export const transform = (category: ICategoryDB): Category => {
   return {
     id: category._id.toString(),
     description: category.description,
@@ -12,5 +12,3 @@ const transform = (category: ICategoryDB): Category => {
     author: transformUser(category.author),
   };
 };
-
-export default transform;

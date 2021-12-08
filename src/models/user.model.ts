@@ -35,10 +35,7 @@ const UserSchema: Schema = new Schema(
       required: true,
     },
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  }
+  { timestamps: true, versionKey: false }
 );
 
 UserSchema.pre('save', async function (next) {

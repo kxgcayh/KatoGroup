@@ -1,5 +1,5 @@
-import { model, Schema, Model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
+import { Document, model, Model, Schema } from 'mongoose';
 import { ROLE } from '../constants/user-role';
 
 // Interface for user database object

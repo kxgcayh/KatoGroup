@@ -12,3 +12,9 @@ export const createProductSchema: RequestValidateSchema = {
     }),
   }),
 };
+
+export const getProductSchema: RequestValidateSchema = {
+  params: Joi.object().keys({
+    id: Joi.string().hex().length(24).required(),
+  }),
+};

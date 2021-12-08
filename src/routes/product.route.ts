@@ -1,7 +1,13 @@
 import { Router } from 'express';
-import { createProductHandler } from '../controllers/product.controller';
+import {
+  createProductHandler,
+  getProductHandler,
+} from '../controllers/product.controller';
 import { authenticate, authorize, validate } from '../middlewares';
-import { createProductSchema } from '../schemas/product.schema';
+import {
+  createProductSchema,
+  getProductSchema,
+} from '../schemas/product.schema';
 import { ROLE } from '../constants/user-role';
 
 const productRouter = Router();
@@ -13,6 +19,15 @@ productRouter.post(
   authorize([ROLE.AUTHOR]),
   validate(createProductSchema),
   createProductHandler
+);
+
+// Route to get a category
+productRouter.get(
+  '/:id',
+  authenticate,
+  authorize([ROLE.AUTHOR]),
+  validate(getProductSchema),
+  getProductHandler
 );
 
 export default productRouter;

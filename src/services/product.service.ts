@@ -17,3 +17,13 @@ export const createProduct = async (
   product = await product.populate('user').execPopulate();
   return transform(product);
 };
+
+export const getProduct = async (id: string): Promise<Product | null> => {
+  const product: IProductDB | null = await ProductModel.findById(id).populate(
+    'user'
+  );
+  if (!product) {
+    return null;
+  }
+  return transform(product);
+};

@@ -27,6 +27,12 @@ const StoreSchema: Schema = new Schema(
   { timestamps: true, versionKey: false }
 );
 
+StoreSchema.virtual('categories', {
+  ref: 'category',
+  localField: '_id',
+  foreignField: 'store',
+});
+
 const StoreModel = model<IStoreDB>('store', StoreSchema);
 
 export default StoreModel;

@@ -53,6 +53,7 @@ export const getCategoriesByStore = async (
   })
     .limit(pagination.size)
     .skip((pagination.page - 1) * pagination.size)
+
     .populate('store');
   return categories.map((category) => transform(category));
 };

@@ -1,7 +1,12 @@
 {
-  "name": "mascott-apparel-backend",
+  "name": "kato-group-rest",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "17.x",
+    "npm": "6.x",
+    "yarn": "1.x"
+  },
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon src/app.ts",
